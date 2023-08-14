@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32922.545
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySpotify", "MySpotify\MySpotify.csproj", "{32444620-D3EA-480A-ABF1-7DEE02C3F8D4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySpotify.Data", "MySpotify.Data\MySpotify.Data.csproj", "{BAF388AF-3FFA-470F-8758-441C4D553780}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySpotify.Models", "MySpotify.Model\MySpotify.Models.csproj", "{EE57013F-F8A3-459E-AC42-05A3133B9BBE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySpotify.Services", "Services\MySpotify.Services.csproj", "{AF8074E0-89FD-4769-BF5D-CE4502C70FF8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{32444620-D3EA-480A-ABF1-7DEE02C3F8D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32444620-D3EA-480A-ABF1-7DEE02C3F8D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32444620-D3EA-480A-ABF1-7DEE02C3F8D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32444620-D3EA-480A-ABF1-7DEE02C3F8D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BAF388AF-3FFA-470F-8758-441C4D553780}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BAF388AF-3FFA-470F-8758-441C4D553780}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BAF388AF-3FFA-470F-8758-441C4D553780}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BAF388AF-3FFA-470F-8758-441C4D553780}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE57013F-F8A3-459E-AC42-05A3133B9BBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE57013F-F8A3-459E-AC42-05A3133B9BBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE57013F-F8A3-459E-AC42-05A3133B9BBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE57013F-F8A3-459E-AC42-05A3133B9BBE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF8074E0-89FD-4769-BF5D-CE4502C70FF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF8074E0-89FD-4769-BF5D-CE4502C70FF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF8074E0-89FD-4769-BF5D-CE4502C70FF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF8074E0-89FD-4769-BF5D-CE4502C70FF8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BB23F4E7-D531-4F0B-9C98-07E8B0350BB7}
+	EndGlobalSection
+EndGlobal
