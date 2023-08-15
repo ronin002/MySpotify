@@ -5,11 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MySpotify.Data.Interfaces;
+using MySpotify.Services.Interfaces;
 
-namespace MySpotify.Data.Repositories
+namespace MySpotify.Services.Impl
 {
-    public class MusicRepository : IMusicRepository
+    public class MusicService : IMusicService
     {
+
+        IMusicRepository musicRepository { get; set; }
         public Music Add(Music singer)
         {
             throw new NotImplementedException();

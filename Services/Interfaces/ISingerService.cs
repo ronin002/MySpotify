@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MySpotify.Data.Interfaces
+namespace MySpotify.Services.Interfaces
 {
-    public interface ISingerRepository
+    public interface ISingerService
     {
         Singer Add(Singer singer);
         Singer Remove(Singer singer);

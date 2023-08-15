@@ -5,14 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MySpotify.Data.Interfaces
+namespace MySpotify.Services.Interfaces
 {
-    public interface IPlaylistRepository
+    public interface IPlaylistService
     {
         Playlist Add(string Name);
-        void Remove(Guid Id);
+        void Remove(string Id);
         Playlist Update(Playlist playlist);
-        Playlist GetById(Guid Id);
+        Playlist GetById(string Id);
         List<Playlist> GetAll();
 
         void AddMusic(Music music);

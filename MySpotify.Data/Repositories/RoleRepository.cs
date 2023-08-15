@@ -8,10 +8,10 @@ using MySpotity.Data;
 
 namespace MySpotify.Data.Repositories
 {
-    public class IRoleRepositoryImpl : IRoleRepository
+    public class RoleRepository : IRoleRepository
     {
         private readonly DataContext _context;
-        public IRoleRepositoryImpl(DataContext context)
+        public RoleRepository(DataContext context)
         {
             _context = context;
         }

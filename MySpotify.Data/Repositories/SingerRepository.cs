@@ -20,7 +20,7 @@ namespace MySpotify.Data.Repositories
             throw new NotImplementedException();
         }
 
-        public Singer GetById(Guid Id)
+        public Singer GetById(int Id)
         {
             throw new NotImplementedException();
         }
@@ -35,7 +35,7 @@ namespace MySpotify.Data.Repositories
             throw new NotImplementedException();
         }
 
-        public Singer Update(Guid Id, Singer singer)
+        public Singer Update(int Id, Singer singer)
         {
             throw new NotImplementedException();
         }

@@ -5,47 +5,38 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MySpotify.Data.Interfaces;
+using MySpotify.Services.Interfaces;
 
-namespace MySpotify.Data.Repositories
+namespace MySpotify.Services.Impl
 {
-    public class MusicRepository : IMusicRepository
+    public class RhythmService : IRhythmService
     {
-        public Music Add(Music singer)
+        public Rhythm Add(Rhythm rhythm)
         {
             throw new NotImplementedException();
         }
 
-        public List<Music> GetAll()
+        public List<Rhythm> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public Music GetById(int Id)
+        public Rhythm GetById(int Id)
         {
             throw new NotImplementedException();
         }
 
-        public List<Music> GetByName(string Name)
+        public List<Rhythm> GetByName(string Name)
         {
             throw new NotImplementedException();
         }
 
-        public List<Music> GetByRhythm(string Name)
+        public Rhythm Remove(Rhythm rhythm)
         {
             throw new NotImplementedException();
         }
 
-        public List<Music> GetBySinger(string Name)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Music Remove(Music singer)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Music Update(int Id, Music singer)
+        public Rhythm Update(int Id, Rhythm rhythm)
         {
             throw new NotImplementedException();
         }
