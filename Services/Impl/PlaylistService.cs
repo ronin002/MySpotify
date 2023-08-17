@@ -31,7 +31,8 @@ namespace MySpotify.Services.Impl
 
         public Playlist Update(Playlist playlist)
         {
-            throw new NotImplementedException();
+            playlist = _playlistRepository.Update(playlist);
+            return playlist;
         }
 
         public Playlist GetById(string Id)

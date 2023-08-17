@@ -9,9 +9,9 @@ namespace MySpotify.Data.Interfaces
 {
     public interface IRhythmRepository
     {
-        Rhythm Add(Rhythm rhythm);
-        Rhythm Remove(Rhythm rhythm);
-        Rhythm Update(int Id, Rhythm rhythm);
+        Rhythm Add(string RhythmName);s
+        void Remove(Rhythm rhythm);
+        Rhythm Update(Rhythm rhythm);
         Rhythm GetById(int Id);
         List<Rhythm> GetAll();
         List<Rhythm> GetByName(string Name);

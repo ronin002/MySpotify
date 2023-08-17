@@ -51,6 +51,7 @@ namespace MySpotity.Data
         public DbSet<Singer> Singers { get; set; }
         public DbSet<Rhythm> Rhythms { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Log> Logs { get; set; }
 
     }
 }

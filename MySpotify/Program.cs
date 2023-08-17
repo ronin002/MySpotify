@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration.Json;
 using Microsoft.IdentityModel.Tokens;
 using MySpotify.Data.Interfaces;
 using MySpotify.Data.Repositories;
+using MySpotify.Data.Services;
 using MySpotify.Services.Impl;
 using MySpotify.Services.Interfaces;
 using MySpotify.Services.Utils;
@@ -114,8 +115,11 @@ void ConfigureData(WebApplicationBuilder builder)
     builder.Services.AddScoped<IRhythmRepository, RhythmRepository>();
     builder.Services.AddScoped<IRoleRepository, RoleRepository>();
     builder.Services.AddScoped<ISingerRepository, SingerRepository>();
+    builder.Services.AddScoped<ILogsRepository, LogsRepository>();
 
     //Services
+
+    builder.Services.AddTransient<ILogsService, LogsService>();
     builder.Services.AddTransient<IMusicService, MusicService>();
     builder.Services.AddTransient<IPlaylistService, PlaylistService>();
 

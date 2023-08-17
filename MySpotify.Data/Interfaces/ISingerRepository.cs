@@ -9,8 +9,8 @@ namespace MySpotify.Data.Interfaces
 {
     public interface ISingerRepository
     {
-        Singer Add(Singer singer);
-        Singer Remove(Singer singer);
+        Singer Add(string SingerName);
+        void Remove(Singer singer);
         Singer Update(int Id, Singer singer);
         Singer GetById(int Id);
         List<Singer> GetAll();

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MySpotify.Data.Interfaces;
 using MySpotity.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace MySpotify.Data.Repositories
 {
@@ -13,18 +14,31 @@ namespace MySpotify.Data.Repositories
     {
 
         DataContext _context { get; set; }
+        private ILogsService LogsService { get; set; }
 
-        public PlaylistRepository(DataContext context)
+        public PlaylistRepository(ILogsService logsService, DataContext context)
         {
             _context = context;
+            LogsService = logsService;
         }
 
         public Playlist Add(string Name)
         {
-            Playlist playlist = new Playlist();
-            playlist.Name = Name;
-            _context.Playlists.Add(playlist);
-            return playlist;
+            
+            try
+            {
+                Playlist playlist = new Playlist();
+                playlist.Name = Name;
+                _context.Playlists.Add(playlist);
+                _context.SaveChanges();
+                return playlist;
+            }
+            catch (Exception ex)
+            {
+
+                throw LogsService.HandleException(ex, "Playlist error", "There was an error removing the Playlist",
+                    this.GetType().ToString());
+            }
 
         }
         public void Remove(Guid Id)
@@ -41,29 +55,28 @@ namespace MySpotify.Data.Repositories
             }
             catch (Exception ex)
             {
-                /*
-                throw LogsService.HandleException(ex, "Game error", "There was an error removing the game",
+                
+                throw LogsService.HandleException(ex, "Playlist error", "There was an error removing the Playlist",
                     this.GetType().ToString());
-                */
             }
         }
         public Playlist Update(Playlist playlist)
         {
             try
             {
-                var i = _context.Playlists.Find(playlist.Id);
-                i = playlist;
-                _context.Playlists.Update(i);
+                //var i = _context.Playlists.Find(playlist.Id);
+                //i = playlist;
+                _context.Playlists.Update(playlist);
                 _context.SaveChanges();
-                return i;
+                return playlist;
             }
             catch (Exception ex)
             {
                 return null;
-                /*
-                throw LogsService.HandleException(ex, "Item error", "There was an error updating the item",
+                
+                throw LogsService.HandleException(ex, "Playlist error", "There was an error updating the Playlist",
                     this.GetType().ToString());
-                */
+                
             }
         }
 
@@ -77,10 +90,10 @@ namespace MySpotify.Data.Repositories
             catch (Exception ex)
             {
                 return null;
-                /*
-                throw LogsService.HandleException(ex, "Game error", "There was an error removing the game",
+                
+                throw LogsService.HandleException(ex, "Playlist error", "There was an error get the Playlist",
                     this.GetType().ToString());
-                */
+                
             }
         }
 

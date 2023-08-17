@@ -15,7 +15,7 @@ namespace MySpotify.Models
         public string Name { get; set; }
         public string Duration { get; set; }
         public string ImageURL { get; set; }
-
+        public string MusicURL { get; set; }
 
         [ForeignKey("FK_Rhythm")]
         public int RhythmId { get; set; }
