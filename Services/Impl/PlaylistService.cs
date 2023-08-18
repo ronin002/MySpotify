@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MySpotify.Data.Interfaces;
 using MySpotify.Services.Interfaces;
+using MySpotify.Data.Repositories;
 
 namespace MySpotify.Services.Impl
 {
@@ -41,7 +42,18 @@ namespace MySpotify.Services.Impl
             return _playlistRepository.GetById(guid);
         }
 
+        public List<Playlist> GetAll()
+        {
+            var playlists = _playlistRepository.GetAll();
+            return playlists;
+        }
 
+
+        public List<Playlist> GetByName(string Name)
+        {
+            var playlists = _playlistRepository.GetByName(Name);
+            return playlists;
+        }
 
 
         #region Music
@@ -55,11 +67,6 @@ namespace MySpotify.Services.Impl
 
   
         public void ChangeOrder(Guid MusicId, int newOrder)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Playlist> GetAll()
         {
             throw new NotImplementedException();
         }

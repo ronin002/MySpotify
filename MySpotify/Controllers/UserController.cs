@@ -26,7 +26,7 @@ namespace MySpotify.Controllers
 
 
         
-        [HttpPost("api/v1/users")]
+        [HttpPost("users")]
         [AllowAnonymous]
         public IActionResult CreateUser([FromServices] TokenService tokenService,
                                     [FromBody] CreateUserDto userCreateModel)
@@ -86,7 +86,7 @@ namespace MySpotify.Controllers
 
 
 
-        [HttpGet("api/v1/users/{id}")]
+        [HttpGet("users/{id}")]
 
         public IActionResult GetUser(
                         [FromRoute] string id)

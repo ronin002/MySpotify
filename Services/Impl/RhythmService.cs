@@ -6,39 +6,61 @@ using System.Text;
 using System.Threading.Tasks;
 using MySpotify.Data.Interfaces;
 using MySpotify.Services.Interfaces;
+using MySpotify.Data.Repositories;
 
 namespace MySpotify.Services.Impl
 {
     public class RhythmService : IRhythmService
     {
-        public Rhythm Add(Rhythm rhythm)
+        private IRhythmRepository _rythmRepository;
+
+        public RhythmService(IRhythmRepository rythmRepository)
         {
-            throw new NotImplementedException();
+            _rythmRepository = rythmRepository;
+        }
+        
+        public Rhythm Add(string rhythm)
+        {
+            return _rythmRepository.Add(rhythm);
+        }
+        public void Remove(string Id)
+        {
+            int id = 0;
+            if (int.TryParse(Id,out id))
+            {
+                _rythmRepository.Remove(id);
+            }
         }
 
+        public Rhythm Update( Rhythm rhythm)
+        {
+            rhythm = _rythmRepository.Update(rhythm);
+            return rhythm;
+        }
+    
         public List<Rhythm> GetAll()
         {
-            throw new NotImplementedException();
+            var rhythms = _rythmRepository.GetAll();
+            return rhythms;
         }
 
-        public Rhythm GetById(int Id)
+        public Rhythm GetById(string Id)
         {
-            throw new NotImplementedException();
+            int id = 0;
+            if (int.TryParse(Id, out id))
+            {
+                var rhythm = _rythmRepository.GetById(id);
+                return rhythm;
+            }
+            return null;
         }
 
         public List<Rhythm> GetByName(string Name)
         {
-            throw new NotImplementedException();
+            var rhythms = _rythmRepository.GetByName(Name);
+            return rhythms;
         }
 
-        public Rhythm Remove(Rhythm rhythm)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Rhythm Update(int Id, Rhythm rhythm)
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }

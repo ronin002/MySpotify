@@ -5,6 +5,7 @@ using MySpotify.Services.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MySpotify.Services.Interfaces;
+using MySpotify.Services.Impl;
 
 namespace MySpotify.Controllers
 {
@@ -24,7 +25,7 @@ namespace MySpotify.Controllers
         }
 
 
-        [HttpPost("api/v1/Create")]
+        [HttpPost("Create")]
         [AllowAnonymous]
         public IActionResult Create([FromBody] string Name)
         {
@@ -33,7 +34,7 @@ namespace MySpotify.Controllers
         }
 
 
-        [HttpDelete("api/v1/Remove")]
+        [HttpDelete("Remove")]
         [AllowAnonymous]
         public IActionResult Remove([FromBody] string playlistId)
         {
@@ -43,7 +44,7 @@ namespace MySpotify.Controllers
 
 
 
-        [HttpPut("api/v1/Update")]
+        [HttpPut("Update")]
         [AllowAnonymous]
         public IActionResult Update([FromBody] Playlist playlist)
         {
@@ -52,7 +53,7 @@ namespace MySpotify.Controllers
         }
 
 
-        [HttpGet("api/v1/GetbyId")]
+        [HttpGet("GetById")]
         [AllowAnonymous]
         public IActionResult GetById([FromQuery] string playlistId)
         {
@@ -60,8 +61,22 @@ namespace MySpotify.Controllers
             return Ok(playlist);
         }
 
+        [HttpGet("GetAll")]
+        [AllowAnonymous]
+        public IActionResult GetAll()
+        {
+            List<Playlist> playlists = _playlistService.GetAll();
+            return Ok(playlists);
+        }
 
-   
+        [HttpGet("GetByName")]
+        [AllowAnonymous]
+        public IActionResult GetByName([FromQuery] string search)
+        {
+            List<Playlist> playlists = _playlistService.GetByName(search);
+            return Ok(playlists);
+        }
+
 
     }
 }

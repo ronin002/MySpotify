@@ -76,14 +76,26 @@ namespace MySpotify.Data.Repositories
 
         public List<Rhythm> GetByName(string Name)
         {
-            throw new NotImplementedException();
-        }
+            try
+            {
+                return _context.Rhythms.Where(x => x.Name.Contains(Name)).ToList();
 
-        public void Remove(Rhythm rhythm)
+            }
+            catch (Exception ex)
+            {
+                return null;
+
+                throw LogsService.HandleException(ex, "Rhythm error", "There was an error get the Rhythm",
+                    this.GetType().ToString());
+
+            }
+        }
+        
+        public void Remove(int RhythmId)
         {
             try
             {
-                var rhythm1 = _context.Rhythms.First(x => x.Id == rhythm.Id);
+                var rhythm1 = _context.Rhythms.First(x => x.Id == RhythmId);
                 if (rhythm1 != null)
                 {
                     _context.Rhythms.Remove(rhythm1);

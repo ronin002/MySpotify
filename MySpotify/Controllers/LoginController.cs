@@ -25,14 +25,14 @@ namespace MySpotify.Controllers
         }
 
 
-        [HttpGet("api/v1/login")]
+        [HttpGet("login")]
         [AllowAnonymous]
         public IActionResult Login()
         {
             return View();
         }
 
-        [HttpPost("api/v1/login")]
+        [HttpPost("login")]
         [AllowAnonymous]
         public IActionResult Login([FromServices] TokenService tokenService,
                                     [FromForm] LoginUserDto userLogin)

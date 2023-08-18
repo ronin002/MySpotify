@@ -8,6 +8,10 @@ using System.Security.Claims;
 
 namespace MySpotify.Controllers
 {
+    
+    
+    [Route("[controller]")]
+    [ApiController]
     [Authorize]
     public class BaseController : Controller
     {

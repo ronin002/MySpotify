@@ -14,6 +14,7 @@ namespace MySpotify.Data.Interfaces
         Playlist Update(Playlist playlist);
         Playlist GetById(Guid Id);
         List<Playlist> GetAll();
+        List<Playlist> GetByName(string Search);
 
         void AddMusic(Music music);
         void RemoveMusic(Music music);

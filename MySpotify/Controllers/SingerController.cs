@@ -9,15 +9,15 @@ using MySpotify.Services.Interfaces;
 namespace MySpotify.Controllers
 {
 
-    public class RhythmController : BaseController
+    public class SingerController : BaseController
     {
 
-        private IRhythmService _rhythmService;
-        public RhythmController(IServiceProvider sp,
-                                IRhythmService rhythmService
+        private ISingerService _singerService;
+        public SingerController(IServiceProvider sp,
+                                ISingerService singerService
                                 ) :base(sp)
         {
-            _rhythmService = rhythmService;
+            _singerService = singerService;
         }
 
 
@@ -25,16 +25,16 @@ namespace MySpotify.Controllers
         [AllowAnonymous]
         public IActionResult Create([FromBody] string Name)
         {
-            Rhythm playlist = _rhythmService.Add(Name);
-            return Ok(playlist);
+            Singer singer = _singerService.Add(Name);
+            return Ok(singer);
         }
 
 
         [HttpDelete("Remove")]
         [AllowAnonymous]
-        public IActionResult Remove([FromBody] string rhythm)
+        public IActionResult Remove([FromBody] string singerId)
         {
-            _rhythmService.Remove(rhythm);
+            _singerService.Remove(singerId);
             return Ok();
         }
 
@@ -42,35 +42,35 @@ namespace MySpotify.Controllers
 
         [HttpPut("Update")]
         [AllowAnonymous]
-        public IActionResult Update([FromBody] Rhythm rhythm)
+        public IActionResult Update([FromBody] Singer singer)
         {
-            Rhythm rhythm1 = _rhythmService.Update(rhythm);
-            return Ok(rhythm1);
+            Singer singer1 = _singerService.Update(singer);
+            return Ok(singer1);
         }
 
 
         [HttpGet("GetbyId")]
         [AllowAnonymous]
-        public IActionResult GetById([FromQuery] string rhythmId)
+        public IActionResult GetById([FromQuery] string singerId)
         {
-            Rhythm rhythm = _rhythmService.GetById(rhythmId);
-            return Ok(rhythm);
+            Singer singer = _singerService.GetById(singerId);
+            return Ok(singer);
         }
 
         [HttpGet("GetAll")]
         [AllowAnonymous]
         public IActionResult GetAll()
         {
-            List<Rhythm> rhythms = _rhythmService.GetAll();
-            return Ok(rhythms);
+            List<Singer> singers = _singerService.GetAll();
+            return Ok(singers);
         }
 
         [HttpGet("GetbyName")]
         [AllowAnonymous]
         public IActionResult GetByName([FromQuery] string search)
         {
-            List<Rhythm> rhythms = _rhythmService.GetByName(search);
-            return Ok(rhythms);
+            List<Singer> singers = _singerService.GetByName(search);
+            return Ok(singers);
         }
 
 

@@ -6,39 +6,62 @@ using System.Text;
 using System.Threading.Tasks;
 using MySpotify.Data.Interfaces;
 using MySpotify.Services.Interfaces;
+using MySpotify.Data.Repositories;
 
 namespace MySpotify.Services.Impl
 {
     public class SingerService : ISingerService
     {
-        public Singer Add(Singer singer)
+        private ISingerRepository _singerRepository;
+
+
+        public SingerService(ISingerRepository singerRepository)
         {
-            throw new NotImplementedException();
+            _singerRepository = singerRepository;
+        }
+
+        public Singer Add(string singer)
+        {
+            return _singerRepository.Add(singer);
+        }
+        public void Remove(string singerId)
+        {
+            Guid id = Guid.Empty;
+            if (Guid.TryParse(singerId, out id))
+            {
+                _singerRepository.Remove(id);
+            }
+        }
+
+        public Singer Update( Singer singer)
+        {
+            singer = _singerRepository.Update(singer);
+            return singer;
         }
 
         public List<Singer> GetAll()
         {
-            throw new NotImplementedException();
+            var singers = _singerRepository.GetAll();
+            return singers;
         }
 
-        public Singer GetById(int Id)
+        public Singer GetById(string Id)
         {
-            throw new NotImplementedException();
+            Guid id = Guid.Empty;
+            if (Guid.TryParse(Id, out id))
+            {
+                var singer = _singerRepository.GetById(id);
+                return singer;
+            }
+            return null;
         }
 
         public List<Singer> GetByName(string Name)
         {
-            throw new NotImplementedException();
+            var rhythms = _singerRepository.GetByName(Name);
+            return rhythms;
         }
 
-        public Singer Remove(Singer singer)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Singer Update(int Id, Singer singer)
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }

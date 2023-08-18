@@ -9,10 +9,10 @@ namespace MySpotify.Services.Interfaces
 {
     public interface IRhythmService
     {
-        Rhythm Add(Rhythm rhythm);
-        Rhythm Remove(Rhythm rhythm);
-        Rhythm Update(int Id, Rhythm rhythm);
-        Rhythm GetById(int Id);
+        Rhythm Add(string rhythm);
+        void Remove(string rhythm);
+        Rhythm Update(Rhythm rhythm);
+        Rhythm GetById(string Id);
         List<Rhythm> GetAll();
         List<Rhythm> GetByName(string Name);
 

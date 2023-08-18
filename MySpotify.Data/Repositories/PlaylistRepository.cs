@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using MySpotify.Data.Interfaces;
 using MySpotity.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Xml.Linq;
 
 namespace MySpotify.Data.Repositories
 {
@@ -71,12 +72,9 @@ namespace MySpotify.Data.Repositories
                 return playlist;
             }
             catch (Exception ex)
-            {
-                return null;
-                
+            {     
                 throw LogsService.HandleException(ex, "Playlist error", "There was an error updating the Playlist",
                     this.GetType().ToString());
-                
             }
         }
 
@@ -89,14 +87,47 @@ namespace MySpotify.Data.Repositories
             }
             catch (Exception ex)
             {
-                return null;
-                
+
                 throw LogsService.HandleException(ex, "Playlist error", "There was an error get the Playlist",
                     this.GetType().ToString());
                 
             }
         }
 
+
+        public List<Playlist> GetAll()
+        {
+            try
+            {
+                return _context.Playlists.ToList();
+
+            }
+            catch (Exception ex)
+            {
+                return null;
+
+                throw LogsService.HandleException(ex, "Playlist error", "There was an error get the Playlist",
+                    this.GetType().ToString());
+
+            }
+        }
+
+        public List<Playlist> GetByName(string Search)
+        {
+            try
+            {
+                return _context.Playlists.Where(x => x.Name.Contains(Search)).ToList();
+
+            }
+            catch (Exception ex)
+            {
+                return null;
+
+                throw LogsService.HandleException(ex, "Playlist error", "There was an error get the Playlist",
+                    this.GetType().ToString());
+
+            }
+        }
 
         public void AddMusic(Music music)
         {
@@ -108,11 +139,7 @@ namespace MySpotify.Data.Repositories
             throw new NotImplementedException();
         }
 
-        public List<Playlist> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
+        
         
 
         public List<Music> GetMusics()
