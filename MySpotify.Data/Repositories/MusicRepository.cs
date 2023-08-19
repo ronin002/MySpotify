@@ -24,9 +24,19 @@ namespace MySpotify.Data.Repositories
         {
             try
             {
-                _context.Musics.Add(music);
-                _context.SaveChanges();
-                return music;
+                var exitsMusic = _context.Musics.Where(x=> x.MusicURL == music.MusicURL).Count();
+                if (exitsMusic <= 0)
+                {
+                    _context.Musics.Add(music);
+                    _context.SaveChanges();
+                    return music;
+                }
+                else
+                {
+                   Exception ex = new Exception("Music Already exists");      
+                   throw LogsService.HandleException(ex, "Music error", "There was an error adding the Music",
+                   this.GetType().ToString());
+                }
             }
             catch (Exception ex)
             {

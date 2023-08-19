@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MySpotity.Data;
 
@@ -10,9 +11,10 @@ using MySpotity.Data;
 namespace MySpotify.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230819041922_RemoveImageURL")]
+    partial class RemoveImageURL
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -74,10 +76,10 @@ namespace MySpotify.Data.Migrations
                     b.Property<Guid?>("PlaylistId")
                         .HasColumnType("char(36)");
 
-                    b.Property<int?>("RhythmId")
+                    b.Property<int>("RhythmId")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("SingerId")
+                    b.Property<Guid>("SingerId")
                         .HasColumnType("char(36)");
 
                     b.Property<string>("Title")
@@ -191,11 +193,15 @@ namespace MySpotify.Data.Migrations
 
                     b.HasOne("MySpotify.Models.Rhythm", "Rhythm")
                         .WithMany()
-                        .HasForeignKey("RhythmId");
+                        .HasForeignKey("RhythmId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("MySpotify.Models.Singer", "Singer")
                         .WithMany()
-                        .HasForeignKey("SingerId");
+                        .HasForeignKey("SingerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Rhythm");
 

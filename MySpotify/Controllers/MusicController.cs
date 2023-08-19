@@ -6,6 +6,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MySpotify.Services.Interfaces;
 using MySpotify.Services.Impl;
+using System.IO;
+using System.Drawing;
+using System.Security.Cryptography;
+using System.IO.Pipes;
+
 
 namespace MySpotify.Controllers
 {
@@ -109,10 +114,17 @@ namespace MySpotify.Controllers
                     {
                         Directory.CreateDirectory(_environment.WebRootPath + "\\musics\\");
                     }
+
+                    string hash = "";
+
                     using (FileStream filestream = System.IO.File.Create(_environment.WebRootPath + "\\musics\\" + arquivo.FileName))
                     {
                         await arquivo.CopyToAsync(filestream);
                         filestream.Flush();
+                        using (var sha = SHA256.Create())
+                        {
+                            hash = Convert.ToBase64String(sha.ComputeHash(filestream));
+                        }
                     }
 
                     TagLib.File tagFile = TagLib.File.Create(_environment.WebRootPath + "\\musics\\" + arquivo.FileName);
@@ -132,6 +144,32 @@ namespace MySpotify.Controllers
                         music.Duration = duration.ToString();
 
                     music.Name = arquivo.FileName;
+                    music.MusicURL = hash;
+
+
+
+
+
+                    //Catch Picture
+
+                    /*
+                    var mStream = new MemoryStream();
+                    var firstPicture = tagFile.Tag.Pictures.FirstOrDefault();
+
+                    if (firstPicture != null)
+                    {
+                        byte[] pData = firstPicture.Data.Data;
+                        mStream.Write(pData, 0, Convert.ToInt32(pData.Length));
+                        var bm = new Bitmap(mStream, false);
+                        mStream.Dispose();
+                        coverPictureBox.Image = bm;
+                    }
+                    else
+                    {
+                        // set "no cover" image
+                    }
+                    music.ImageURL
+                    */
                     this.Create(music);
 
                     return Ok(music);
