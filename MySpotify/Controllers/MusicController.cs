@@ -99,7 +99,7 @@ namespace MySpotify.Controllers
 
         [HttpPost("Upload")]
         [AllowAnonymous]
-        public async Task<string> EnviaArquivo([FromForm] IFormFile arquivo)
+        public async Task<IActionResult> EnviaArquivo([FromForm] IFormFile arquivo)
         {
             if (arquivo.Length > 0)
             {
@@ -113,17 +113,38 @@ namespace MySpotify.Controllers
                     {
                         await arquivo.CopyToAsync(filestream);
                         filestream.Flush();
-                        return "\\imagens\\" + arquivo.FileName;
                     }
+
+                    TagLib.File tagFile = TagLib.File.Create(_environment.WebRootPath + "\\musics\\" + arquivo.FileName);
+                    string artist = tagFile.Tag.FirstAlbumArtist;
+                    string album = tagFile.Tag.Album;
+                    string title = tagFile.Tag.Title;
+                    TimeSpan duration = tagFile.Properties.Duration;
+
+                    Music music = new Music();
+                    //music.Singer.Name = artist;
+                    music.Album = album;
+                    music.Title = title;
+
+                    if (duration.ToString().Length >=9)
+                        music.Duration = duration.ToString().Substring(0,8);
+                    else
+                        music.Duration = duration.ToString();
+
+                    music.Name = arquivo.FileName;
+                    this.Create(music);
+
+                    return Ok(music);
+
                 }
                 catch (Exception ex)
                 {
-                    return ex.ToString();
+                    return BadRequest(ex.ToString());
                 }
             }
             else
             {
-                return "Ocorreu uma falha no envio do arquivo...";
+                return  BadRequest("Ocorreu uma falha no envio do arquivo...");
             }
         }
     }

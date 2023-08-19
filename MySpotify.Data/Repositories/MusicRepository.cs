@@ -31,7 +31,7 @@ namespace MySpotify.Data.Repositories
             catch (Exception ex)
             {
 
-                throw LogsService.HandleException(ex, "Music error", "There was an error removing the Music",
+                throw LogsService.HandleException(ex, "Music error", "There was an error adding the Music",
                     this.GetType().ToString());
             }
         }
@@ -86,7 +86,7 @@ namespace MySpotify.Data.Repositories
             catch (Exception ex)
             {
 
-                throw LogsService.HandleException(ex, "Music error", "There was an error updating the Music",
+                throw LogsService.HandleException(ex, "Music error", "There was an error GetById the Music",
                     this.GetType().ToString());
 
             }
@@ -104,7 +104,7 @@ namespace MySpotify.Data.Repositories
             catch (Exception ex)
             {
    
-                throw LogsService.HandleException(ex, "Music error", "There was an error get the Music",
+                throw LogsService.HandleException(ex, "Music error", "There was an error GetByName the Music",
                     this.GetType().ToString());
 
             }
