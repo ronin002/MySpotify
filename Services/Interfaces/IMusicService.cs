@@ -9,10 +9,10 @@ namespace MySpotify.Services.Interfaces
 {
     public interface IMusicService
     {
-        Music Add(Music singer);
-        Music Remove(Music singer);
-        Music Update(int Id, Music singer);
-        Music GetById(int Id);
+        Music Add(Music music);
+        void Remove(string MusicId);
+        Music Update( Music music);
+        Music GetById(string Id);
         List<Music> GetAll();
         List<Music> GetByName(string Name);
         List<Music> GetByRhythm(string Name);

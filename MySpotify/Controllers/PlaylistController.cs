@@ -55,7 +55,7 @@ namespace MySpotify.Controllers
 
         [HttpGet("GetById")]
         [AllowAnonymous]
-        public IActionResult GetById([FromQuery] string playlistId)
+        public IActionResult GetById([FromBody] string playlistId)
         {
             Playlist playlist = _playlistService.GetById(playlistId);
             return Ok(playlist);
@@ -71,7 +71,7 @@ namespace MySpotify.Controllers
 
         [HttpGet("GetByName")]
         [AllowAnonymous]
-        public IActionResult GetByName([FromQuery] string search)
+        public IActionResult GetByName([FromBody] string search)
         {
             List<Playlist> playlists = _playlistService.GetByName(search);
             return Ok(playlists);

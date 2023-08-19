@@ -10,7 +10,7 @@ namespace MySpotify.Data.Interfaces
     public interface IMusicRepository
     {
         Music Add(Music music);
-        void Remove(Music music);
+        void Remove(Guid Id);
         Music Update(Music music);
         Music GetById(Guid Id);
         List<Music> GetAll();

@@ -6,51 +6,67 @@ using System.Text;
 using System.Threading.Tasks;
 using MySpotify.Data.Interfaces;
 using MySpotify.Services.Interfaces;
+using MySpotify.Data.Repositories;
 
 namespace MySpotify.Services.Impl
 {
     public class MusicService : IMusicService
     {
+        IMusicRepository _musicRepository { get; set; }
 
-        IMusicRepository musicRepository { get; set; }
-        public Music Add(Music singer)
+        public MusicService(IMusicRepository musicRepository)
         {
-            throw new NotImplementedException();
+            _musicRepository =  musicRepository;
+        }
+
+
+        public Music Add(Music music)
+        {
+            return _musicRepository.Add(music);
+        }
+
+        public void Remove(string Id)
+        {
+            Guid guid = Guid.Parse(Id);
+            _musicRepository.Remove(guid);
+        }
+
+        public Music Update(Music playlist)
+        {
+            playlist = _musicRepository.Update(playlist);
+            return playlist;
+        }
+
+        public Music GetById(string Id)
+        {
+            Guid guid = Guid.Parse(Id);
+            return _musicRepository.GetById(guid);
         }
 
         public List<Music> GetAll()
         {
-            throw new NotImplementedException();
+            var playlists = _musicRepository.GetAll();
+            return playlists;
         }
 
-        public Music GetById(int Id)
-        {
-            throw new NotImplementedException();
-        }
 
         public List<Music> GetByName(string Name)
         {
-            throw new NotImplementedException();
-        }
-
-        public List<Music> GetByRhythm(string Name)
-        {
-            throw new NotImplementedException();
+            var playlists = _musicRepository.GetByName(Name);
+            return playlists;
         }
 
         public List<Music> GetBySinger(string Name)
         {
-            throw new NotImplementedException();
+            var playlists = _musicRepository.GetBySinger(Name);
+            return playlists;
         }
 
-        public Music Remove(Music singer)
+        public List<Music> GetByRhythm(string Name)
         {
-            throw new NotImplementedException();
+            var playlists = _musicRepository.GetByRhythm(Name);
+            return playlists;
         }
 
-        public Music Update(int Id, Music singer)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

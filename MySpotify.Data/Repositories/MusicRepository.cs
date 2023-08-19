@@ -35,14 +35,14 @@ namespace MySpotify.Data.Repositories
                     this.GetType().ToString());
             }
         }
-        public void Remove(Music music)
+        public void Remove(Guid Id)
         {
             try
             {
-                var music1 = _context.Musics.First(x => x.Id == music.Id);
+                var music1 = _context.Musics.First(x => x.Id == Id);
                 if (music1 != null)
                 {
-                    _context.Musics.Remove(music);
+                    _context.Musics.Remove(music1);
                     _context.SaveChanges();
                 }
             }

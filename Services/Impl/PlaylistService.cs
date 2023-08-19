@@ -36,7 +36,7 @@ namespace MySpotify.Services.Impl
             return playlist;
         }
 
-        public Playlist GetById(string Id)
+        public Playlist GetById( string Id)
         {
             Guid guid = Guid.Parse(Id);
             return _playlistRepository.GetById(guid);
