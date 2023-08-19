@@ -14,7 +14,7 @@ namespace MySpotify.Models
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string Duration { get; set; }
-        public string Album { get; set; }
+        public string? Album { get; set; }
         public string Title { get; set; }
         public string MusicURL { get; set; }
 

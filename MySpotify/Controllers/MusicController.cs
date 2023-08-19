@@ -10,7 +10,7 @@ using System.IO;
 using System.Drawing;
 using System.Security.Cryptography;
 using System.IO.Pipes;
-
+using Microsoft.IdentityModel.Tokens;
 
 namespace MySpotify.Controllers
 {
@@ -115,18 +115,36 @@ namespace MySpotify.Controllers
                         Directory.CreateDirectory(_environment.WebRootPath + "\\musics\\");
                     }
 
-                    string hash = "";
-
-                    using (FileStream filestream = System.IO.File.Create(_environment.WebRootPath + "\\musics\\" + arquivo.FileName))
+                    string hash;
+                    string FilePath = _environment.WebRootPath + "\\musics\\" + arquivo.FileName;
+                    using (FileStream filestream = System.IO.File.Create(FilePath))
                     {
+                        
                         await arquivo.CopyToAsync(filestream);
                         filestream.Flush();
-                        using (var sha = SHA256.Create())
+
+                        using (var md5 = MD5.Create())
                         {
-                            hash = Convert.ToBase64String(sha.ComputeHash(filestream));
+                            var hashMD5 = md5.ComputeHash(filestream);
+                            var base64String = Convert.ToBase64String(hashMD5);
+                            hash = base64String;
+                        }
+                    }
+                    HashAlgorithm cryptoService = SHA256.Create();
+                    using (cryptoService)
+                    {
+                        using (var fileStream = new FileStream(FilePath,
+                                                               FileMode.Open,
+                                                               FileAccess.Read,
+                                                               FileShare.ReadWrite))
+                        {
+                            var hashLocal = cryptoService.ComputeHash(fileStream);
+                            var hashString = Convert.ToBase64String(hashLocal);
+                            hash = hashString;
                         }
                     }
 
+        
                     TagLib.File tagFile = TagLib.File.Create(_environment.WebRootPath + "\\musics\\" + arquivo.FileName);
                     string artist = tagFile.Tag.FirstAlbumArtist;
                     string album = tagFile.Tag.Album;
@@ -136,6 +154,7 @@ namespace MySpotify.Controllers
                     Music music = new Music();
                     //music.Singer.Name = artist;
                     music.Album = album;
+                    if (string.IsNullOrEmpty(title) || string.IsNullOrWhiteSpace(title)) title = arquivo.FileName;
                     music.Title = title;
 
                     if (duration.ToString().Length >=9)
