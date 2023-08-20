@@ -19,16 +19,25 @@ namespace MySpotify.Controllers
     {
 
         private IMusicService _musicService;
+        private ISingerService _singerService;
+        private IPlaylistService _playlistService;
+
+
         public static IWebHostEnvironment _environment;
+
         public MusicController(IServiceProvider sp,
                                 IWebHostEnvironment environment,
                                 IMusicService musicService,
+                                ISingerService singerService,
                                 IPlaylistService playlistService
                                 ) :base(sp)
         {
             _musicService = musicService;
             _environment = environment;
+            _singerService = singerService;
+            _playlistService = playlistService;
         }
+
 
 
         [HttpPost("Create")]
@@ -152,7 +161,23 @@ namespace MySpotify.Controllers
                     TimeSpan duration = tagFile.Properties.Duration;
 
                     Music music = new Music();
-                    //music.Singer.Name = artist;
+                    if (artist != null)
+                    {
+
+                        //List<Singer> singers =(List<Singer>) new SingerController(_serviceProvider, _singerService).GetByName(artist);                        
+
+                        List<Singer> singers = _singerService.GetByName(artist);
+
+                        if (singers != null && singers.Count >= 1)
+                            music.SingerId = singers[0].Id;
+                        else
+                        {
+                            //Singer newSinger = (Singer)new SingerController(_serviceProvider, _singerService).Create(artist);
+                            Singer newSinger = _singerService.Add(artist);
+                            music.SingerId = newSinger.Id;
+                        }
+                    }
+
                     music.Album = album;
                     if (string.IsNullOrEmpty(title) || string.IsNullOrWhiteSpace(title)) title = arquivo.FileName;
                     music.Title = title;
@@ -164,10 +189,6 @@ namespace MySpotify.Controllers
 
                     music.Name = arquivo.FileName;
                     music.MusicURL = hash;
-
-
-
-
 
                     //Catch Picture
 

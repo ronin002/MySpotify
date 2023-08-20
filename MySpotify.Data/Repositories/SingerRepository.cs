@@ -76,7 +76,16 @@ namespace MySpotify.Data.Repositories
         }
         public List<Singer> GetAll()
         {
-            throw new NotImplementedException();
+            try
+            {
+                return _context.Singers.ToList();
+
+            }
+            catch (Exception ex)
+            {
+                throw LogsService.HandleException(ex, "Singer error", "There was an error get the Singer",
+                    this.GetType().ToString());
+            }
         }
 
         public Singer GetById(Guid Id)

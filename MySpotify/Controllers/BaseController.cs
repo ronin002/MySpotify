@@ -41,11 +41,13 @@ namespace MySpotify.Controllers
 
         public BaseController(
                              IMusicService musicService1,
-                             IPlaylistService playlistService1
+                             IPlaylistService playlistService1,
+                             ISingerService singerService1
                              )
         {
             musicService = musicService1;
             playlistService = playlistService1;
+            singerService = singerService1;
         }
 
         public BaseController(IUserService userService1,

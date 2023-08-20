@@ -84,7 +84,18 @@ namespace MySpotify.Data.Repositories
         }
         public List<Music> GetAll()
         {
-            throw new NotImplementedException();
+            try
+            {
+                return _context.Musics.ToList();
+
+            }
+            catch (Exception ex)
+            {
+
+                throw LogsService.HandleException(ex, "Music error", "There was an error GetByName the Music",
+                    this.GetType().ToString());
+
+            }
         }
 
         public Music GetById(Guid Id)
@@ -122,12 +133,33 @@ namespace MySpotify.Data.Repositories
 
         public List<Music> GetByRhythm(string Name)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return _context.Musics.Where(x => x.Rhythm.Name.Contains(Name)).ToList();
+
+            }
+            catch (Exception ex)
+            {
+
+                throw LogsService.HandleException(ex, "Music error", "There was an error GetByName the Music",
+                    this.GetType().ToString());
+
+            }
         }
 
         public List<Music> GetBySinger(string Name)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return _context.Musics.Where(x => x.Singer.Name.Contains(Name)).ToList();
+            }
+            catch (Exception ex)
+            {
+
+                throw LogsService.HandleException(ex, "Music error", "There was an error GetByName the Music",
+                    this.GetType().ToString());
+
+            }
         }
     }
 }

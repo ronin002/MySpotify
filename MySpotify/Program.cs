@@ -122,6 +122,8 @@ void ConfigureData(WebApplicationBuilder builder)
     builder.Services.AddTransient<ILogsService, LogsService>();
     builder.Services.AddTransient<IMusicService, MusicService>();
     builder.Services.AddTransient<IPlaylistService, PlaylistService>();
+    builder.Services.AddTransient<ISingerService, SingerService>();
+    builder.Services.AddTransient<IRhythmService, RhythmService>();
 
 
 

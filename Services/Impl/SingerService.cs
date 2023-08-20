@@ -14,7 +14,6 @@ namespace MySpotify.Services.Impl
     {
         private ISingerRepository _singerRepository;
 
-
         public SingerService(ISingerRepository singerRepository)
         {
             _singerRepository = singerRepository;
