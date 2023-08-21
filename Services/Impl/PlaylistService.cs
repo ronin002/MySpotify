@@ -60,42 +60,52 @@ namespace MySpotify.Services.Impl
 
 
 
-        public void AddMusic(Music music)
+        public void AddMusic(string PlaylistId, string MusicId)
         {
-            throw new NotImplementedException();
+            Guid gPlaylistId = Guid.Empty;
+            Guid gMusicId = Guid.Empty;
+
+            if (!Guid.TryParse(PlaylistId, out gPlaylistId))
+                return;
+
+            if (!Guid.TryParse(MusicId, out gMusicId))
+                return;
+              
+            _playlistRepository.AddMusic(gPlaylistId, gMusicId);
+
         }
 
   
-        public void ChangeOrder(Guid MusicId, int newOrder)
+        public void ChangeOrder(string PlaylistId, string MusicId, int newOrder)
         {
             throw new NotImplementedException();
         }
 
  
 
-        public List<Music> GetMusics()
+        public List<Music> GetMusics(string PlaylistId)
         {
             throw new NotImplementedException();
         }
 
-        public List<Music> GetMusicsByName(string Name)
+        public List<Music> GetMusicsByName(string PlaylistId, string MusicName)
         {
             throw new NotImplementedException();
         }
 
-        public List<Music> GetMusicsByRhythm(string Name)
+        public List<Music> GetMusicsByRhythm(string PlaylistId, string Rhythm)
         {
             throw new NotImplementedException();
         }
 
-        public List<Music> GetMusicsBySinger(string Name)
+        public List<Music> GetMusicsBySinger(string PlaylistId, string Singer)
         {
             throw new NotImplementedException();
         }
 
        
 
-        public void RemoveMusic(Music music)
+        public void RemoveMusic(string PlaylistId, string MusicId)
         {
             throw new NotImplementedException();
         }

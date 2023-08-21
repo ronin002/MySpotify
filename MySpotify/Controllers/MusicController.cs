@@ -155,10 +155,23 @@ namespace MySpotify.Controllers
 
         
                     TagLib.File tagFile = TagLib.File.Create(_environment.WebRootPath + "\\musics\\" + arquivo.FileName);
+                    TagLib.Tag tag = tagFile.GetTag(TagLib.TagTypes.Id3v2);
                     string artist = tagFile.Tag.FirstAlbumArtist;
                     string album = tagFile.Tag.Album;
                     string title = tagFile.Tag.Title;
                     TimeSpan duration = tagFile.Properties.Duration;
+
+
+                    foreach(string item in tagFile.Tag.Performers)
+                    {
+                        Console.WriteLine(item);
+                    }
+
+
+                    foreach (string item in tagFile.Tag.AlbumArtists)
+                    {
+                        Console.WriteLine(item);
+                    }
 
                     Music music = new Music();
                     if (artist != null)

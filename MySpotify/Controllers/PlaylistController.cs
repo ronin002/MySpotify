@@ -78,5 +78,17 @@ namespace MySpotify.Controllers
         }
 
 
+        [HttpPost("AddMusic")]
+        [AllowAnonymous]
+        public IActionResult AddMusic([FromBody] Dictionary<string, string> datastring )
+        {
+            var PlaylistId = datastring["PlaylistId"]; 
+            
+            var MusicId = datastring["MusicId"];
+            _playlistService.AddMusic(PlaylistId, MusicId);
+            return Ok();
+        }
+
+
     }
 }

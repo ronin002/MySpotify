@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MySpotity.Data;
 
@@ -10,9 +11,10 @@ using MySpotity.Data;
 namespace MySpotify.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230821024017_MusicHasMany")]
+    partial class MusicHasMany
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -211,11 +213,11 @@ namespace MySpotify.Data.Migrations
             modelBuilder.Entity("MySpotify.Models.Music", b =>
                 {
                     b.HasOne("MySpotify.Models.Rhythm", "Rhythm")
-                        .WithMany("Musics")
+                        .WithMany()
                         .HasForeignKey("RhythmId");
 
                     b.HasOne("MySpotify.Models.Singer", "Singer")
-                        .WithMany("Musics")
+                        .WithMany()
                         .HasForeignKey("SingerId");
 
                     b.Navigation("Rhythm");
@@ -228,16 +230,6 @@ namespace MySpotify.Data.Migrations
                     b.HasOne("MySpotify.Models.User", null)
                         .WithMany("Playlists")
                         .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("MySpotify.Models.Rhythm", b =>
-                {
-                    b.Navigation("Musics");
-                });
-
-            modelBuilder.Entity("MySpotify.Models.Singer", b =>
-                {
-                    b.Navigation("Musics");
                 });
 
             modelBuilder.Entity("MySpotify.Models.User", b =>

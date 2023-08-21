@@ -12,9 +12,10 @@ namespace MySpotify.Models
     {
         [Key]
         public Guid Id { get; set; }
+        public Guid OwnerId { get; set; }
         public string Name { get; set; }
         public string? ImageURL { get; set; }
-        public IEnumerable<Music> Musics { get; set; }
+        public IList<Music> Musics { get; set; }
 
 
     }

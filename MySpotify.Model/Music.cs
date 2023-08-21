@@ -27,6 +27,8 @@ namespace MySpotify.Models
         public Guid? SingerId { get; set; }
         public virtual Singer Singer { get; set; }
 
+        public IList<Playlist> Playlists { get; set; }
+
 
     }
 }
