@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xaml-compile compile="true" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             >
+    <DataTemplate x:Key="MusicsStyle">
+        <Grid Margin="2,2,2,0"
+                      ColumnDefinitions=".2*,.7*"
+                      RowDefinitions="*,*,*"
+                      >
+            <Frame 
+                        Grid.RowSpan="3"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        BackgroundColor="LightGray"
+                        BorderColor="White">
+            </Frame>
+            <Image 
+                        Grid.RowSpan="3"
+                       
+                        HeightRequest="50"
+                        VerticalOptions="Center"
+                        HorizontalOptions="CenterAndExpand"
+                        BackgroundColor="Red"
+                        Source="{Binding Imagem}"
+                        />
+
+            <Label Grid.Column="2"
+                           FontSize="Medium"
+                           FontAttributes="Bold"
+                           Text="{Binding Title}"
+                           VerticalOptions="Start">
+            </Label>
+            <Label Grid.Column="2"
+                            Grid.Row="1"
+                           FontSize="Medium"
+                           FontAttributes="Bold"
+                           Text="{Binding SingerName}"
+                           VerticalOptions="Start">
+            </Label>
+            <Label Grid.Column="2"
+                           Grid.Row="2"
+                           FontSize="Medium"
+                           FontAttributes="Bold"
+                           Text= "{Binding Album}"
+                           VerticalOptions="Start">
+            </Label>
+
+
+        </Grid>
+    </DataTemplate>
+</ResourceDictionary>

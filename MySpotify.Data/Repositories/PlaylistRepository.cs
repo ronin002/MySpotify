@@ -157,7 +157,6 @@ namespace MySpotify.Data.Repositories
             }
             catch (Exception ex)
             {
-
                 throw LogsService.HandleException(ex, "Playlist error", "There was an error adding Music to the Playlist",
                     this.GetType().ToString());
             }

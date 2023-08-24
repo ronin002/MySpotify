@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MySpotify.Mob.MainPage">
+    <StackLayout>
+    <TabBar x:Name="MusicTabs">
+        <Tab Title="Home" Icon="home.png">
+            <ShellContent ContentTemplate="{DataTemplate local:Home}"/>
+        </Tab>
+        <Tab Title="Search" Icon="search.png">
+            <ShellContent ContentTemplate="{DataTemplate local:Search}"/>
+        </Tab>
+        <Tab Title="Library" Icon="playlist2.png">
+            <ShellContent ContentTemplate="{DataTemplate local:Library}"/>
+        </Tab>
+
+    </TabBar>
+
+</ContentPage>-->
+
+<Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:local="clr-namespace:MySpotify.Mob.MVVM.Views"
+        x:Class="MySpotify.Mob.MainPage">
+    <TabBar x:Name="MusicTabs">
+        <Tab Title="Home" Icon="home.png">
+            <ShellContent ContentTemplate="{DataTemplate local:Home}"/>
+        </Tab>
+        <Tab Title="Search" Icon="search.png">
+            <ShellContent ContentTemplate="{DataTemplate local:Search}"/>
+        </Tab>
+        <Tab Title="Library" Icon="playlist2.png">
+            <ShellContent ContentTemplate="{DataTemplate local:Library}"/>
+        </Tab>
+
+    </TabBar>
+</Shell>
