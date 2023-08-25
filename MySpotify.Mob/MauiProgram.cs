@@ -3,7 +3,7 @@
     public static class MauiProgram
     {
 
-        const string URL_MY_SPOTIFY_API_HOST = "https://192.168.0.20:45457/";
+        const string URL_MY_SPOTIFY_API_HOST = "http://10.0.0.2:5153/";
         public static MauiApp CreateMauiApp()
         {
             var builder = MauiApp.CreateBuilder();

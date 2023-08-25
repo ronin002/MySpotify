@@ -72,7 +72,7 @@ namespace MySpotify.Controllers
         [AllowAnonymous]
         public IActionResult GetById([FromBody] string musicId)
         {
-            Music music = _musicService.GetById(musicId);
+            MusicDto music = _musicService.GetById(musicId);
             return Ok(music);
         }
 
@@ -80,7 +80,7 @@ namespace MySpotify.Controllers
         [AllowAnonymous]
         public IActionResult GetAll()
         {
-            List<Music> musics = _musicService.GetAll();
+            List<MusicDto> musics = _musicService.GetAll();
             return Ok(musics);
         }
 
@@ -88,7 +88,7 @@ namespace MySpotify.Controllers
         [AllowAnonymous]
         public IActionResult GetByName([FromBody] string search)
         {
-            List<Music> musics = _musicService.GetByName(search);
+            List<MusicDto> musics = _musicService.GetByName(search);
             return Ok(musics);
         }
 
@@ -96,7 +96,7 @@ namespace MySpotify.Controllers
         [AllowAnonymous]
         public IActionResult GetBySinger([FromBody] string search)
         {
-            List<Music> musics = _musicService.GetBySinger(search);
+            List<MusicDto> musics = _musicService.GetBySinger(search);
             return Ok(musics);
         }
 
@@ -104,7 +104,7 @@ namespace MySpotify.Controllers
         [AllowAnonymous]
         public IActionResult GetByRhythm([FromBody] string search)
         {
-            List<Music> musics = _musicService.GetByRhythm(search);
+            List<MusicDto> musics = _musicService.GetByRhythm(search);
             return Ok(musics);
         }
 

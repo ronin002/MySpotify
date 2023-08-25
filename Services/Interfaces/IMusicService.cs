@@ -12,11 +12,11 @@ namespace MySpotify.Services.Interfaces
         Music Add(Music music);
         void Remove(string MusicId);
         Music Update( Music music);
-        Music GetById(string Id);
-        List<Music> GetAll();
-        List<Music> GetByName(string Name);
-        List<Music> GetByRhythm(string Name);
-        List<Music> GetBySinger(string Name);
+        MusicDto GetById(string Id);
+        List<MusicDto> GetAll();
+        List<MusicDto> GetByName(string Name);
+        List<MusicDto> GetByRhythm(string Name);
+        List<MusicDto> GetBySinger(string Name);
 
     }
 }

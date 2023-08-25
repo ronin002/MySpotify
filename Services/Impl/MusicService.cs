@@ -37,32 +37,32 @@ namespace MySpotify.Services.Impl
             return playlist;
         }
 
-        public Music GetById(string Id)
+        public MusicDto GetById(string Id)
         {
             Guid guid = Guid.Parse(Id);
             return _musicRepository.GetById(guid);
         }
 
-        public List<Music> GetAll()
+        public List<MusicDto> GetAll()
         {
             var playlists = _musicRepository.GetAll();
             return playlists;
         }
 
 
-        public List<Music> GetByName(string Name)
+        public List<MusicDto> GetByName(string Name)
         {
             var playlists = _musicRepository.GetByName(Name);
             return playlists;
         }
 
-        public List<Music> GetBySinger(string Name)
+        public List<MusicDto> GetBySinger(string Name)
         {
             var playlists = _musicRepository.GetBySinger(Name);
             return playlists;
         }
 
-        public List<Music> GetByRhythm(string Name)
+        public List<MusicDto> GetByRhythm(string Name)
         {
             var playlists = _musicRepository.GetByRhythm(Name);
             return playlists;

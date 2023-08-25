@@ -20,11 +20,27 @@ namespace MySpotify.Mob.MVVM.ViewModels
             CreateMusics();
         }
 
-        private async void CreateMusics() 
+        private  void CreateMusics() 
         {
-            APIServices _APIService = new APIServices();
-            _APIService.GetMusicsALL();
 
+            /*
+            APIServices _APIService = new APIServices();
+            List<Music> listMusics = await  _APIService.GetMusicsALL();
+            
+            //Musics = new ObservableCollection<Music>(); //Musics = new ObservableCollection<Music>(listMusics);
+            for (int i = 0; i < listMusics.Count; i++)
+            {
+                
+                Console.WriteLine(listMusics[i].Title);
+                //listMusics[i].Imagem = "img1.png";
+                //Music music = new Music();
+                //music = listMusics[i];
+                //Musics.Add(music);
+            }
+
+            
+            //Musics = new ObservableCollection<Music>(listMusics);
+            */
             Musics = new ObservableCollection<Music>
             {
                 new Music
@@ -33,7 +49,7 @@ namespace MySpotify.Mob.MVVM.ViewModels
                     Imagem = "img1.png",
                     Name = "04_Fe_rias_Em_Salvador_1.mp3",
                     Duration = "00:04:00",
-                    SingerId = Guid.Parse("08dba19e-280d-4ab3-89c6-a7110e0f4b16"),
+                    SingerId = "08dba19e-280d-4ab3-89c6-a7110e0f4b16",
                     SingerName = "Fernando e Sorocaba",
                     Album = "Salvador",
                     MusicURL = "ZGWXDur/9g8QfI/gYotKIxz6UcaN6jnJkTAALoxyzPo=",
@@ -45,7 +61,7 @@ namespace MySpotify.Mob.MVVM.ViewModels
                     Imagem = "img2.png",
                     Name = "01 - Metallica - One.mp3",
                     Duration = "00:07:25",
-                    SingerId = Guid.Parse("08dba19e-280d-4ab3-89c6-a7110e0f4b16"),
+                    SingerId = "08dba19e-280d-4ab3-89c6-a7110e0f4b16",
                     SingerName = "Metallica",
                     Album = "One (German Single)",
                     MusicURL = "8x5VwzcgORjyivwSWzNHcYfvMm3yz6goOAv8lYow20M=",
@@ -54,6 +70,9 @@ namespace MySpotify.Mob.MVVM.ViewModels
 
                                              
             };
+
+
+            
 
         }
 
