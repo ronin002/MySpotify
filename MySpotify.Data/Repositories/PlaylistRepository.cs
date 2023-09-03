@@ -216,7 +216,7 @@ namespace MySpotify.Data.Repositories
                 if (playlist == null) return null;
 
 
-                var musics = playlist.Musics.Where(x => x.Rhythm.Name.Contains(Name)).ToList();
+                var musics = playlist.Musics.Where(x => x.Rhythm.Contains(Name)).ToList();
                 return musics;
             }
             catch (Exception ex)
@@ -235,7 +235,7 @@ namespace MySpotify.Data.Repositories
                 if (playlist == null) return null;
 
 
-                var musics = playlist.Musics.Where(x => x.Singer.Name.Contains(Name)).ToList();
+                var musics = playlist.Musics.Where(x => x.Author.Contains(Name) || x.Artist.Contains(Name)).ToList();
                 return musics;
             }
             catch (Exception ex)

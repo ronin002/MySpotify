@@ -10,6 +10,7 @@ using System.Xml.Linq;
 
 namespace MySpotify.Data.Repositories
 {
+    /*
     public class RhythmRepository : IRhythmRepository
     {
         DataContext _context { get; set; }
@@ -130,4 +131,5 @@ namespace MySpotify.Data.Repositories
             }
         }
     }
+    */
 }

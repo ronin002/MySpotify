@@ -18,16 +18,16 @@ namespace MySpotify.Controllers
         private IUserService userService;
         private IMusicService musicService;
         private IPlaylistService playlistService;
-        private IRhythmService rhythmService;
-        private ISingerService singerService;
+        //private IRhythmService rhythmService;
+        //private ISingerService singerService;
 
         public BaseController(IServiceProvider sp)
         {
 
             musicService = (IMusicService)sp.GetService(typeof(IMusicService));
             playlistService = (IPlaylistService)sp.GetService(typeof(IPlaylistService));
-            rhythmService = (IRhythmService)sp.GetService(typeof(IRhythmService));
-            singerService = (ISingerService)sp.GetService(typeof(ISingerService));
+            //rhythmService = (IRhythmService)sp.GetService(typeof(IRhythmService));
+            //singerService = (ISingerService)sp.GetService(typeof(ISingerService));
 
 
             userService = (IUserService)sp.GetService(typeof(IUserService));
@@ -41,27 +41,25 @@ namespace MySpotify.Controllers
 
         public BaseController(
                              IMusicService musicService1,
-                             IPlaylistService playlistService1,
-                             ISingerService singerService1
+                             IPlaylistService playlistService1
+
                              )
         {
             musicService = musicService1;
             playlistService = playlistService1;
-            singerService = singerService1;
+
         }
 
         public BaseController(IUserService userService1,
                              IMusicService musicService1,
-                             IPlaylistService playlistService1,
-                             IRhythmService rhythmService1,
-                             ISingerService singerService1
+                             IPlaylistService playlistService1
+
                              )
         {
             userService = userService1;
             musicService = musicService1;
             playlistService = playlistService1;
-            singerService = singerService1;
-            rhythmService = rhythmService1;
+;
         }
 
         protected User ReadToken()

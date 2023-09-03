@@ -113,9 +113,9 @@ void ConfigureData(WebApplicationBuilder builder)
     builder.Services.AddScoped<IUserRepository, UserRepository>();
     builder.Services.AddScoped<IMusicRepository, MusicRepository>();
     builder.Services.AddScoped<IPlaylistRepository, PlaylistRepository>();
-    builder.Services.AddScoped<IRhythmRepository, RhythmRepository>();
+    //builder.Services.AddScoped<IRhythmRepository, RhythmRepository>();
     builder.Services.AddScoped<IRoleRepository, RoleRepository>();
-    builder.Services.AddScoped<ISingerRepository, SingerRepository>();
+    //builder.Services.AddScoped<ISingerRepository, SingerRepository>();
     builder.Services.AddScoped<ILogsRepository, LogsRepository>();
 
     //Services
@@ -123,8 +123,8 @@ void ConfigureData(WebApplicationBuilder builder)
     builder.Services.AddTransient<ILogsService, LogsService>();
     builder.Services.AddTransient<IMusicService, MusicService>();
     builder.Services.AddTransient<IPlaylistService, PlaylistService>();
-    builder.Services.AddTransient<ISingerService, SingerService>();
-    builder.Services.AddTransient<IRhythmService, RhythmService>();
+    //builder.Services.AddTransient<ISingerService, SingerService>();
+    //builder.Services.AddTransient<IRhythmService, RhythmService>();
 
 
 

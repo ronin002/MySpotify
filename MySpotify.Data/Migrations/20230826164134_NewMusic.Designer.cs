@@ -11,8 +11,8 @@ using MySpotity.Data;
 namespace MySpotify.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230819131011_NullableAlbumMusic")]
-    partial class NullableAlbumMusic
+    [Migration("20230826164134_NewMusic")]
+    partial class NewMusic
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,21 @@ namespace MySpotify.Data.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "6.0.21")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
+
+            modelBuilder.Entity("MusicPlaylist", b =>
+                {
+                    b.Property<Guid>("MusicsId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("PlaylistsId")
+                        .HasColumnType("char(36)");
+
+                    b.HasKey("MusicsId", "PlaylistsId");
+
+                    b.HasIndex("PlaylistsId");
+
+                    b.ToTable("MusicPlaylist");
+                });
 
             modelBuilder.Entity("MySpotify.Models.Log", b =>
                 {
@@ -60,6 +75,14 @@ namespace MySpotify.Data.Migrations
                     b.Property<string>("Album")
                         .HasColumnType("longtext");
 
+                    b.Property<string>("Artist")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Author")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<string>("Duration")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -72,26 +95,15 @@ namespace MySpotify.Data.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<Guid?>("PlaylistId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<int?>("RhythmId")
-                        .HasColumnType("int");
-
-                    b.Property<Guid?>("SingerId")
-                        .HasColumnType("char(36)");
+                    b.Property<string>("Rhythm")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PlaylistId");
-
-                    b.HasIndex("RhythmId");
-
-                    b.HasIndex("SingerId");
 
                     b.ToTable("Musics");
                 });
@@ -109,6 +121,9 @@ namespace MySpotify.Data.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<Guid>("OwnerId")
+                        .HasColumnType("char(36)");
+
                     b.Property<Guid?>("UserId")
                         .HasColumnType("char(36)");
 
@@ -117,44 +132,6 @@ namespace MySpotify.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Playlists");
-                });
-
-            modelBuilder.Entity("MySpotify.Models.Rhythm", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("ImageURL")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Rhythms");
-                });
-
-            modelBuilder.Entity("MySpotify.Models.Singer", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
-
-                    b.Property<string>("ImageURL")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Singers");
                 });
 
             modelBuilder.Entity("MySpotify.Models.User", b =>
@@ -184,23 +161,19 @@ namespace MySpotify.Data.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("MySpotify.Models.Music", b =>
+            modelBuilder.Entity("MusicPlaylist", b =>
                 {
+                    b.HasOne("MySpotify.Models.Music", null)
+                        .WithMany()
+                        .HasForeignKey("MusicsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("MySpotify.Models.Playlist", null)
-                        .WithMany("Musics")
-                        .HasForeignKey("PlaylistId");
-
-                    b.HasOne("MySpotify.Models.Rhythm", "Rhythm")
                         .WithMany()
-                        .HasForeignKey("RhythmId");
-
-                    b.HasOne("MySpotify.Models.Singer", "Singer")
-                        .WithMany()
-                        .HasForeignKey("SingerId");
-
-                    b.Navigation("Rhythm");
-
-                    b.Navigation("Singer");
+                        .HasForeignKey("PlaylistsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("MySpotify.Models.Playlist", b =>
@@ -208,11 +181,6 @@ namespace MySpotify.Data.Migrations
                     b.HasOne("MySpotify.Models.User", null)
                         .WithMany("Playlists")
                         .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("MySpotify.Models.Playlist", b =>
-                {
-                    b.Navigation("Musics");
                 });
 
             modelBuilder.Entity("MySpotify.Models.User", b =>

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace MySpotify.Data.Interfaces
 {
+    /*
     public interface IRhythmRepository
     {
         Rhythm Add(string RhythmName);
@@ -17,4 +18,5 @@ namespace MySpotify.Data.Interfaces
         List<Rhythm> GetByName(string Name);
 
     }
+    */
 }

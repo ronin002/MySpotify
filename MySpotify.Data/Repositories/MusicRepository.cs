@@ -8,7 +8,6 @@ using MySpotify.Data.Interfaces;
 using MySpotity.Data;
 using System.Xml.Linq;
 using System.Reflection;
-using MySpotify.Data.Migrations;
 using System.Dynamic;
 
 namespace MySpotify.Data.Repositories
@@ -84,12 +83,12 @@ namespace MySpotify.Data.Repositories
 
             }
         }
-        public List<MusicDto> GetAll()
+        public List<Music> GetAll()
         {
             try
             {
                 List<Music> listMusic = _context.Musics.ToList();
-
+                /*
                 List<MusicDto> Result = (from x in _context.Musics
                                          select new MusicDto
                                          {
@@ -106,8 +105,8 @@ namespace MySpotify.Data.Repositories
                                              SingerId = x.SingerId.ToString(),
                                              SingerName = "SingerName"
                             }).ToList();
-
-                return Result;
+                */
+                return listMusic;
  
 
    
@@ -121,7 +120,7 @@ namespace MySpotify.Data.Repositories
             }
         }
 
-        public MusicDto GetById(Guid Id)
+        public Music GetById(Guid Id)
         {
             try
             {
@@ -136,13 +135,13 @@ namespace MySpotify.Data.Repositories
             }
         }
 
-        public List<MusicDto> GetByName(string Name)
+        public List<Music> GetByName(string Name)
         {
             try
             {
-                return null; // _context.Musics.Where(x => x.Name.Contains(Name) || 
-                        //                     x.Singer.Name.Contains(Name) ||
-                        //                     x.Rhythm.Name.Contains(Name)).ToList();
+                return  _context.Musics.Where(x => x.Name.Contains(Name) || 
+                               x.Rhythm.Contains(Name) || x.Title.Contains(Name) ||
+                               x.Author.Contains(Name) || x.Artist.Contains(Name)).ToList();
                 
             }
             catch (Exception ex)
@@ -154,7 +153,7 @@ namespace MySpotify.Data.Repositories
             }
         }
 
-        public List<MusicDto> GetByRhythm(string Name)
+        public List<Music> GetByRhythm(string Name)
         {
             try
             {
@@ -170,7 +169,7 @@ namespace MySpotify.Data.Repositories
             }
         }
 
-        public List<MusicDto> GetBySinger(string Name)
+        public List<Music> GetBySinger(string Name)
         {
             try
             {

@@ -73,6 +73,14 @@ namespace MySpotify.Data.Migrations
                     b.Property<string>("Album")
                         .HasColumnType("longtext");
 
+                    b.Property<string>("Artist")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Author")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<string>("Duration")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -85,21 +93,15 @@ namespace MySpotify.Data.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int?>("RhythmId")
-                        .HasColumnType("int");
-
-                    b.Property<Guid?>("SingerId")
-                        .HasColumnType("char(36)");
+                    b.Property<string>("Rhythm")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("RhythmId");
-
-                    b.HasIndex("SingerId");
 
                     b.ToTable("Musics");
                 });
@@ -128,42 +130,6 @@ namespace MySpotify.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Playlists");
-                });
-
-            modelBuilder.Entity("MySpotify.Models.Rhythm", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("ImageURL")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Rhythms");
-                });
-
-            modelBuilder.Entity("MySpotify.Models.Singer", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
-
-                    b.Property<string>("ImageURL")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Singers");
                 });
 
             modelBuilder.Entity("MySpotify.Models.User", b =>
@@ -208,36 +174,11 @@ namespace MySpotify.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MySpotify.Models.Music", b =>
-                {
-                    b.HasOne("MySpotify.Models.Rhythm", "Rhythm")
-                        .WithMany("Musics")
-                        .HasForeignKey("RhythmId");
-
-                    b.HasOne("MySpotify.Models.Singer", "Singer")
-                        .WithMany("Musics")
-                        .HasForeignKey("SingerId");
-
-                    b.Navigation("Rhythm");
-
-                    b.Navigation("Singer");
-                });
-
             modelBuilder.Entity("MySpotify.Models.Playlist", b =>
                 {
                     b.HasOne("MySpotify.Models.User", null)
                         .WithMany("Playlists")
                         .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("MySpotify.Models.Rhythm", b =>
-                {
-                    b.Navigation("Musics");
-                });
-
-            modelBuilder.Entity("MySpotify.Models.Singer", b =>
-                {
-                    b.Navigation("Musics");
                 });
 
             modelBuilder.Entity("MySpotify.Models.User", b =>

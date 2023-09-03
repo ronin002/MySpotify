@@ -19,7 +19,6 @@ namespace MySpotify.Controllers
     {
 
         private IMusicService _musicService;
-        private ISingerService _singerService;
         private IPlaylistService _playlistService;
 
 
@@ -28,13 +27,11 @@ namespace MySpotify.Controllers
         public MusicController(IServiceProvider sp,
                                 IWebHostEnvironment environment,
                                 IMusicService musicService,
-                                ISingerService singerService,
                                 IPlaylistService playlistService
                                 ) :base(sp)
         {
             _musicService = musicService;
             _environment = environment;
-            _singerService = singerService;
             _playlistService = playlistService;
         }
 
@@ -72,7 +69,7 @@ namespace MySpotify.Controllers
         [AllowAnonymous]
         public IActionResult GetById([FromBody] string musicId)
         {
-            MusicDto music = _musicService.GetById(musicId);
+            Music music = _musicService.GetById(musicId);
             return Ok(music);
         }
 
@@ -80,15 +77,15 @@ namespace MySpotify.Controllers
         [AllowAnonymous]
         public IActionResult GetAll()
         {
-            List<MusicDto> musics = _musicService.GetAll();
+            List<Music> musics = _musicService.GetAll();
             return Ok(musics);
         }
 
         [HttpGet("GetByName")]
         [AllowAnonymous]
-        public IActionResult GetByName([FromBody] string search)
+        public IActionResult GetByName([FromQuery] string search)
         {
-            List<MusicDto> musics = _musicService.GetByName(search);
+            List<Music> musics = _musicService.GetByName(search);
             return Ok(musics);
         }
 
@@ -96,7 +93,7 @@ namespace MySpotify.Controllers
         [AllowAnonymous]
         public IActionResult GetBySinger([FromBody] string search)
         {
-            List<MusicDto> musics = _musicService.GetBySinger(search);
+            List<Music> musics = _musicService.GetBySinger(search);
             return Ok(musics);
         }
 
@@ -104,7 +101,7 @@ namespace MySpotify.Controllers
         [AllowAnonymous]
         public IActionResult GetByRhythm([FromBody] string search)
         {
-            List<MusicDto> musics = _musicService.GetByRhythm(search);
+            List<Music> musics = _musicService.GetByRhythm(search);
             return Ok(musics);
         }
 
@@ -119,6 +116,7 @@ namespace MySpotify.Controllers
             {
                 try
                 {
+
                     if (!Directory.Exists(_environment.WebRootPath + "\\musics\\"))
                     {
                         Directory.CreateDirectory(_environment.WebRootPath + "\\musics\\");
@@ -128,7 +126,7 @@ namespace MySpotify.Controllers
                     string FilePath = _environment.WebRootPath + "\\musics\\" + arquivo.FileName;
                     using (FileStream filestream = System.IO.File.Create(FilePath))
                     {
-                        
+
                         await arquivo.CopyToAsync(filestream);
                         filestream.Flush();
 
@@ -152,14 +150,38 @@ namespace MySpotify.Controllers
                             hash = hashString;
                         }
                     }
-
-        
                     TagLib.File tagFile = TagLib.File.Create(_environment.WebRootPath + "\\musics\\" + arquivo.FileName);
-                    TagLib.Tag tag = tagFile.GetTag(TagLib.TagTypes.Id3v2);
-                    string artist = tagFile.Tag.FirstAlbumArtist;
-                    string album = tagFile.Tag.Album;
-                    string title = tagFile.Tag.Title;
-                    TimeSpan duration = tagFile.Properties.Duration;
+                    TagLib.Tag tag = tagFile.GetTag(TagLib.TagTypes.AllTags);
+
+                    string artist = "";
+                    string author = "";
+                    string album = "";
+                    string title = arquivo.FileName;
+                    string rhythm = "";
+
+                    if (!string.IsNullOrEmpty(tagFile.Tag.Title)) title = tagFile.Tag.Title;
+                    if (!string.IsNullOrEmpty(tagFile.Tag.FirstPerformer)) author = tagFile.Tag.FirstPerformer;
+                    if (!string.IsNullOrEmpty(tagFile.Tag.FirstAlbumArtist)) artist = tagFile.Tag.FirstAlbumArtist;
+                    if (!string.IsNullOrEmpty(tagFile.Tag.Album)) album = tagFile.Tag.Album;
+                    if (tagFile.Tag.Genres.Length > 0) rhythm = tagFile.Tag.Genres[0];
+
+
+                    string duration = "";
+                    if (tagFile.Properties.Duration != null)
+                    {
+                        duration = tagFile.Properties.Duration.ToString();
+                        if (duration.Length >=8) duration = duration.ToString().Substring(0, 8);
+                    }
+
+                    Music music = new Music();
+                    music.Name = arquivo.FileName;
+                    music.Artist = artist;
+                    music.Album = album;
+                    music.Title = title;
+                    music.Rhythm = rhythm;
+                    music.Author = author;
+                    music.MusicURL = hash;
+                    music.Duration = duration;
 
 
                     foreach(string item in tagFile.Tag.Performers)
@@ -172,8 +194,10 @@ namespace MySpotify.Controllers
                     {
                         Console.WriteLine(item);
                     }
+                    
 
-                    Music music = new Music();
+                    /*
+                    
                     if (artist != null)
                     {
 
@@ -238,6 +262,10 @@ namespace MySpotify.Controllers
                 return  BadRequest("Ocorreu uma falha no envio do arquivo...");
             }
         }
+
+
+
+
     }
 
 }

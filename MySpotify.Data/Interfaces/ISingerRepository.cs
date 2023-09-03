@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 
 namespace MySpotify.Data.Interfaces
 {
+
+    /*
     public interface ISingerRepository
     {
         Singer Add(string SingerName);
@@ -17,4 +19,5 @@ namespace MySpotify.Data.Interfaces
         List<Singer> GetByName(string Name);
 
     }
+    */
 }

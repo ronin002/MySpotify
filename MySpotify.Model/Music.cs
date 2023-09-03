@@ -17,15 +17,17 @@ namespace MySpotify.Models
         public string? Album { get; set; }
         public string Title { get; set; }
         public string MusicURL { get; set; }
+        public string Artist { get; set; }
+        public string Author { get; set; }
+        public string Rhythm { get; set; }
+        //[ForeignKey("FK_Rhythm")]
+        //public int? RhythmId { get; set; }
+        //public virtual Rhythm Rhythm { get; set; }
 
-        [ForeignKey("FK_Rhythm")]
-        public int? RhythmId { get; set; }
-        public virtual Rhythm Rhythm { get; set; }
 
-
-        [ForeignKey ("FK_Singer")]
-        public Guid? SingerId { get; set; }
-        public virtual Singer Singer { get; set; }
+        //[ForeignKey ("FK_Singer")]
+        //public Guid? SingerId { get; set; }
+        //public virtual Singer Singer { get; set; }
 
         public IList<Playlist> Playlists { get; set; }
 

@@ -10,6 +10,7 @@ using MySpotify.Data.Repositories;
 
 namespace MySpotify.Services.Impl
 {
+    /*
     public class RhythmService : IRhythmService
     {
         private IRhythmRepository _rythmRepository;
@@ -63,4 +64,5 @@ namespace MySpotify.Services.Impl
 
        
     }
+    */
 }

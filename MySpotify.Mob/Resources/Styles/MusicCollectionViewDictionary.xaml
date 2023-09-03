@@ -5,20 +5,20 @@
              >
     <DataTemplate x:Key="MusicsStyle">
         <Grid Margin="2,2,2,0"
-                      ColumnDefinitions=".2*,.7*"
-                      RowDefinitions="*,*,*"
+                      ColumnDefinitions=".2*,.5*,2"
+                      RowDefinitions="*,*"
                       >
             <Frame 
-                        Grid.RowSpan="3"
+                        Grid.RowSpan="2"
                         Grid.Column="0"
                         Grid.ColumnSpan="2"
                         BackgroundColor="LightGray"
                         BorderColor="White">
             </Frame>
             <Image 
-                        Grid.RowSpan="3"
+                        Grid.RowSpan="2"
                        
-                        HeightRequest="50"
+                        HeightRequest="30"
                         VerticalOptions="Center"
                         HorizontalOptions="CenterAndExpand"
                         BackgroundColor="Red"
@@ -38,14 +38,20 @@
                            Text="{Binding SingerName}"
                            VerticalOptions="Start">
             </Label>
-            <Label Grid.Column="2"
+            <!--<Label Grid.Column="2"
                            Grid.Row="2"
                            FontSize="Medium"
                            FontAttributes="Bold"
                            Text= "{Binding Album}"
                            VerticalOptions="Start">
-            </Label>
-
+            </Label>-->
+            <!--<Button Grid.Column="3" 
+                    Grid.RowSpan="2"
+                    Text="Del" 
+                    WidthRequest="20"
+                    HeightRequest="20"
+                    Command="{Binding Source={RelativeSource AncestorType={x:Type local:MySpotify.Mob.MVVM.Views.Library}}, Path=PlayMusicItemCommand}"
+                    CommandParameter="{Binding}"/>-->
 
         </Grid>
     </DataTemplate>

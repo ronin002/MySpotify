@@ -1,12 +1,11 @@
 ﻿using System;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace MySpotify.Data.Migrations
 {
-    public partial class Initial : Migration
+    public partial class NewMusic : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,35 +13,49 @@ namespace MySpotify.Data.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Rhythms",
+                name: "Logs",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(type: "longtext", nullable: false)
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    Message = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    ImageURL = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4")
+                    TimeStamp = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Class = table.Column<int>(type: "int", nullable: false),
+                    Uploaded = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    SessionId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Rhythms", x => x.Id);
+                    table.PrimaryKey("PK_Logs", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Singers",
+                name: "Musics",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     Name = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    ImageURL = table.Column<string>(type: "longtext", nullable: false)
+                    Duration = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Album = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Title = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    MusicURL = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Artist = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Author = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Rhythm = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Singers", x => x.Id);
+                    table.PrimaryKey("PK_Musics", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -71,9 +84,10 @@ namespace MySpotify.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    OwnerId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     Name = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    ImageURL = table.Column<string>(type: "longtext", nullable: false)
+                    ImageURL = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     UserId = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci")
                 },
@@ -89,58 +103,34 @@ namespace MySpotify.Data.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Musics",
+                name: "MusicPlaylist",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Duration = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    ImageURL = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    RhythmId = table.Column<int>(type: "int", nullable: false),
-                    SingerId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    PlaylistId = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci")
+                    MusicsId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    PlaylistsId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Musics", x => x.Id);
+                    table.PrimaryKey("PK_MusicPlaylist", x => new { x.MusicsId, x.PlaylistsId });
                     table.ForeignKey(
-                        name: "FK_Musics_Playlists_PlaylistId",
-                        column: x => x.PlaylistId,
-                        principalTable: "Playlists",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Musics_Rhythms_RhythmId",
-                        column: x => x.RhythmId,
-                        principalTable: "Rhythms",
+                        name: "FK_MusicPlaylist_Musics_MusicsId",
+                        column: x => x.MusicsId,
+                        principalTable: "Musics",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Musics_Singers_SingerId",
-                        column: x => x.SingerId,
-                        principalTable: "Singers",
+                        name: "FK_MusicPlaylist_Playlists_PlaylistsId",
+                        column: x => x.PlaylistsId,
+                        principalTable: "Playlists",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Musics_PlaylistId",
-                table: "Musics",
-                column: "PlaylistId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Musics_RhythmId",
-                table: "Musics",
-                column: "RhythmId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Musics_SingerId",
-                table: "Musics",
-                column: "SingerId");
+                name: "IX_MusicPlaylist_PlaylistsId",
+                table: "MusicPlaylist",
+                column: "PlaylistsId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Playlists_UserId",
@@ -151,16 +141,16 @@ namespace MySpotify.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Logs");
+
+            migrationBuilder.DropTable(
+                name: "MusicPlaylist");
+
+            migrationBuilder.DropTable(
                 name: "Musics");
 
             migrationBuilder.DropTable(
                 name: "Playlists");
-
-            migrationBuilder.DropTable(
-                name: "Rhythms");
-
-            migrationBuilder.DropTable(
-                name: "Singers");
 
             migrationBuilder.DropTable(
                 name: "Users");

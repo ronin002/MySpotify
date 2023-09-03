@@ -3,10 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MySpotify.Mob.MVVM.Views.Library"
              Title="LibraryView">
-    <CollectionView ItemsSource="{Binding Musics}"
+    <CollectionView
+                    x:Name="CollectionMusicView"
+                    ItemsSource="{Binding Musics}"
                     ItemTemplate="{StaticResource MusicsStyle}"
-                    
-                    >
+                    SelectionMode="Single"
+                    SelectedItem="{Binding SelectedMusic}"
+                    SelectionChangedCommand="{Binding OnCollectionMusicViewChanged}">
+                  
   
 
     </CollectionView>

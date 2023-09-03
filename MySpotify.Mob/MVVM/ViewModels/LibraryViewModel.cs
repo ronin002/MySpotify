@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using MySpotify.Mob.MVVM.Models;
 
 using MySpotify.Mob.Services;
@@ -13,34 +15,103 @@ namespace MySpotify.Mob.MVVM.ViewModels
 {
     public class LibraryViewModel
     {
-        public ObservableCollection<Music> Musics { get; set; }
+        //public ICommand OnSelectMusic => new Command<Music>(DeleteBLEItemControl);
 
+        public ObservableCollection<Music> Musics { get; set; }
+        private List<Music> musicList = new List<Music>();
         public LibraryViewModel()
         {
             CreateMusics();
+            LoadMusic();
+
+
+        }
+        private void LoadMusic()
+        {
+            Musics = new ObservableCollection<Music>(musicList);
+        }
+        
+        private Music selectedMusic;
+        
+
+        public Music SelectedMusic 
+        { 
+            get { return SelectedMusic; }
+
+            set {
+
+                if (selectedMusic != value)
+                {
+                    selectedMusic = value;
+                    //OnPropertyChange("SelectedMusic");
+                    if (SelectedMusic != null)
+                    {
+                        PerformNavigation(SelectedMusic.Id.ToString() + " - NAME:" + selectedMusic.Title);
+                    }
+                }
+            } 
+        }
+        
+        /*
+        void OnCollectionMusicViewChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string previous = (e.PreviousSelection.FirstOrDefault() as Music)?.Name;
+            string current = (e.CurrentSelection.FirstOrDefault() as Music)?.Name;
+            Console.WriteLine("MUSIC SELECTED: " + current);
+
+        }
+        */
+        public ICommand OnCollectionMusicViewChanged => new Command<Object>((Object e) =>
+        {
+            Console.WriteLine($"selection made {SelectedMusic.Name}");
+        });
+
+        public ICommand PlayMusicItemCommand => new Command<Music>(PlayMusicItemControl);
+
+        public void PlayMusicItemControl(Music o)
+        {
+            Console.WriteLine($"P {o}");
         }
 
-        private  void CreateMusics() 
+        private async void PerformNavigation(string MusicId)
+        {
+            
+            //Debug.WriteLine("MUSIC SELECTED: " + MusicId);
+            //await Shell.Current.GoToAsync("PageMusic");
+        }
+
+ 
+
+        private async void CreateMusics() 
         {
 
-            /*
+            
             APIServices _APIService = new APIServices();
-            List<Music> listMusics = await  _APIService.GetMusicsALL();
+            musicList = await _APIService.GetMusicsALL();
             
             //Musics = new ObservableCollection<Music>(); //Musics = new ObservableCollection<Music>(listMusics);
-            for (int i = 0; i < listMusics.Count; i++)
-            {
-                
-                Console.WriteLine(listMusics[i].Title);
-                //listMusics[i].Imagem = "img1.png";
-                //Music music = new Music();
-                //music = listMusics[i];
-                //Musics.Add(music);
-            }
 
             
+            for (int i = 0; i < musicList.Count(); i++)
+            {
+                
+                //Console.WriteLine(musicList[i].Title);
+                //listMusics[i].Imagem = "img1.png";
+                Music music = new Music();
+                music = musicList[i];
+                if (string.IsNullOrEmpty(music.Imagem))
+                    music.Imagem = "clavesol.png";
+
+                if (music.Title.Length > 30)
+                    music.Title = music.Title.Substring(0, 30);
+
+                Musics.Add(music);
+                //Console.WriteLine(music.Title);
+            }
+            
+            
             //Musics = new ObservableCollection<Music>(listMusics);
-            */
+            /*
             Musics = new ObservableCollection<Music>
             {
                 new Music
@@ -70,7 +141,7 @@ namespace MySpotify.Mob.MVVM.ViewModels
 
                                              
             };
-
+            */
 
             
 

@@ -9,6 +9,8 @@ using MySpotify.Services.Interfaces;
 namespace MySpotify.Controllers
 {
 
+    /*
+
     public class SingerController : BaseController
     {
 
@@ -75,4 +77,5 @@ namespace MySpotify.Controllers
 
 
     }
+    */
 }

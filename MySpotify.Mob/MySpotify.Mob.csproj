@@ -49,10 +49,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\clavesol.png" />
 	  <None Remove="Resources\Images\hamburgermenu.png" />
 	  <None Remove="Resources\Images\home.png" />
 	  <None Remove="Resources\Images\img1.png" />
 	  <None Remove="Resources\Images\img2.png" />
+	  <None Remove="Resources\Images\play.png" />
 	  <None Remove="Resources\Images\playlist.png" />
 	  <None Remove="Resources\Images\playlist2.png" />
 	  <None Remove="Resources\Images\search.png" />

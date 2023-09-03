@@ -38,6 +38,20 @@ namespace Og1_PM_API.Data.Mappings
                 .HasColumnName("MusicURL")
                 .HasDefaultValue("");
 
+
+            builder.Property(x => x.Author)
+                .HasColumnName("Author")
+                .HasDefaultValue("");
+
+            builder.Property(x => x.Artist)
+                .HasColumnName("Artist")
+                .HasDefaultValue("");
+
+            builder.Property(x => x.Rhythm)
+               .HasColumnName("Rhythm")
+               .HasDefaultValue("");
+
+            /*
             builder.HasOne(x => x.Singer)
                 .WithMany(m => m.Musics)
                 .HasForeignKey(x => x.Id);
@@ -45,6 +59,9 @@ namespace Og1_PM_API.Data.Mappings
             builder.HasOne(x => x.Rhythm)
                .WithMany(x => x.Musics)
                .HasForeignKey(x => x.Id);
+            */
+
+
 
             builder
                .HasMany(x => x.Playlists)
